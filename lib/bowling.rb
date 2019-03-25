@@ -4,5 +4,7 @@
 module Bowling
   module_function
 
-  def score(for_frames:); end
+  def score(for_frames:)
+    0
+  end
 end
