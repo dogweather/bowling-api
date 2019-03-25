@@ -76,14 +76,15 @@ module Bowling
     frames.compact
           .map(&:rolls)
           .flatten
+          .map(&:score)
   end
 
   def spare?(frame)
-    frame.rolls.count == 2 && frame.rolls.sum == 10
+    frame.rolls.count == 2 && frame.rolls.map(&:score).sum == 10
   end
 
   def strike?(frame)
-    frame.rolls.count == 1 && frame.rolls.first == 10
+    frame.rolls.count == 1 && frame.rolls.first.score == 10
   end
 
   # Return an array of arrays consisting of each element
