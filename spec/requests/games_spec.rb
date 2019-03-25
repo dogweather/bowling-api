@@ -7,24 +7,24 @@ RSpec.describe 'Games', type: :request do
   let(:headers) { { 'ACCEPT' => 'application/json' } }
 
   describe 'GET /games' do
+    before { get '/games', headers: headers }
+
     it 'is successful' do
-      get '/games', headers: headers
       expect(response).to have_http_status(200)
     end
 
     it 'returns content-type json' do
-      get '/games', headers: headers
       expect(response.content_type).to eq('application/json')
     end
 
     it 'returns an array of game objects' do
-      get '/games', headers: headers
       expect(JSON.parse(response.body).first['id']).to eq(games(:new_game).id)
     end
   end
 
   describe 'POST /games' do
     before { post '/games', headers: headers }
+
     it 'returns status: object created' do
       expect(response).to have_http_status(201)
     end
