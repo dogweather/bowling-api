@@ -39,5 +39,10 @@ RSpec.describe Bowling do
       perfect_game = Array.new(9, strike) + [Frame.new(rolls: [10, 10, 10])]
       expect(Bowling.score(for_frames: perfect_game)).to eq(300)
     end
+
+    it 'correctly calculates all spares' do
+      game = Array.new(9, Frame.new(rolls: [9, 1])) + [Frame.new(rolls: [9, 1, 9])]
+      expect(Bowling.score(for_frames: game)).to eq(190)
+    end
   end
 end
