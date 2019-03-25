@@ -76,5 +76,23 @@ RSpec.describe 'Rolls', type: :request do
       post "/games/#{new_game.id}/frames/10/rolls?score=1"
       expect(response).to have_http_status(:created)
     end
+
+    it 'will allow 3 throws in the tenth frame on a spare' do
+      (1..9).each do |frame|
+        2.times do
+          post "/games/#{new_game.id}/frames/#{frame}/rolls?score=5"
+          expect(response).to have_http_status(:created)
+        end
+      end
+
+      post "/games/#{new_game.id}/frames/10/rolls?score=5"
+      expect(response).to have_http_status(:created)
+
+      post "/games/#{new_game.id}/frames/10/rolls?score=5"
+      expect(response).to have_http_status(:created)
+
+      post "/games/#{new_game.id}/frames/10/rolls?score=1"
+      expect(response).to have_http_status(:created)
+    end
   end
 end
