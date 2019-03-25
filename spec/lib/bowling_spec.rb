@@ -11,8 +11,7 @@ RSpec.describe Bowling do
 
   describe '#score' do
     it 'returns 0 for all gutter-balls' do
-      all_gutterballs = []
-      10.times { all_gutterballs << Frame.new(rolls: [0, 0]) }
+      all_gutterballs = Array.new(10, Frame.new(rolls: [0, 0]))
 
       expect(Bowling.score(for_frames: all_gutterballs)).to eq(0)
     end
