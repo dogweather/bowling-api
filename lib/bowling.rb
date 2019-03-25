@@ -12,23 +12,35 @@ module Bowling
 
   # Private
 
+  # @return [Integer]
   def pins(frames)
-    frames.map { |f| f.rolls.sum }.sum
+    frames.map(&:rolls)
+          .flatten
+          .sum
   end
 
   def bonuses(frames)
-    take_all_by_2(frames).map do |tuple|
-      curr_frame = tuple.first
-      next_frame = tuple.last
+    puts "INPUT: #{frames}"
 
-      if spare?(frame: curr_frame)
-        next_frame.rolls.first
-      elsif strike?(frame: curr_frame)
-        next_frame.rolls.sum
+    xs = take_all_by_3(frames).map do |tuple|
+      current_frame = tuple.first
+      next_two_frames = tuple.slice(0, 2)
+                             .compact
+      next_rolls = next_two_frames.map(&:rolls)
+                                  .flatten
+                                  .slice(0, 2)
+
+      if spare?(frame: current_frame)
+        next_rolls.first
+      elsif strike?(frame: current_frame)
+        next_rolls.sum
       else
         0
       end
-    end.sum
+    end
+
+    puts "OUTPUT: #{xs}"
+    xs.sum
   end
 
   def spare?(frame:)
@@ -44,11 +56,11 @@ module Bowling
   #
   # @example
   #
-  #   [1, 2, 3, 4] => [[1, 2], [2, 3], [3, 4], [4, nil]]
+  #   ['a', 'b', 'c'] => [['a', 'b', 'c'], ['b', 'c', nil], ['c', nil, nil]]
   #
   # @param ary [Array]
   # @return [Array[Array]]
-  def take_all_by_2(ary)
-    ary.map.with_index { |x, i| [x, ary[i + 1]] }
+  def take_all_by_3(ary)
+    ary.map.with_index { |x, i| [x, ary[i + 1], ary[i + 2]] }
   end
 end
