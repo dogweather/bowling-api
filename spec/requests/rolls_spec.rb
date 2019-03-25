@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Rolls', type: :request do
-  fixtures :games
+  let(:new_game) { Game.create! }
 
   describe 'GET /games/:game_id/frames/:frame_id/rolls' do
     context 'when a game has just been created' do
-      before { get "/games/#{games(:new_game).id}/frames/1/rolls" }
+      before { get "/games/#{new_game.id}/frames/1/rolls" }
 
       it 'returns success' do
         expect(response).to have_http_status(200)
@@ -21,9 +21,9 @@ RSpec.describe 'Rolls', type: :request do
 
   describe 'POST /games/:game_id/frames/:frame_id/rolls' do
     context 'when a game has just been created' do
-      before { post "/games/#{games(:new_game).id}/frames/1/rolls?score=5" }
+      before { post "/games/#{new_game.id}/frames/1/rolls?score=5" }
 
-      xit 'returns success: object created' do
+      it 'returns success: object created' do
         expect(response).to have_http_status(201)
       end
     end
