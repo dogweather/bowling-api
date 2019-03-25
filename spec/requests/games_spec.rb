@@ -39,4 +39,14 @@ RSpec.describe 'Games', type: :request do
       expect(actual_id).to eq(newest_id)
     end
   end
+
+  describe 'GET /game/:game_id' do
+    it "doesn't return a score when unfinished" do
+      get "/games/#{games(:new_game).id}"
+      attributes = JSON.parse(response.body).keys
+
+      expect(response).to have_http_status(200)
+      expect(attributes).not_to include('score')
+    end
+  end
 end
