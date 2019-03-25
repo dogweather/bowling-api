@@ -60,5 +60,20 @@ RSpec.describe 'Games', type: :request do
       expect(response).to have_http_status(200)
       expect(attributes).not_to include('score')
     end
+
+    it 'returns a score when the game is finished' do
+      # Bowl ten frames
+      (1..10).each do |frame|
+        post "/games/#{new_game.id}/frames/#{frame}/rolls?score=5"
+        post "/games/#{new_game.id}/frames/#{frame}/rolls?score=2"
+      end
+
+      # Check the game info
+      get "/games/#{new_game.id}"
+      score = JSON.parse(response.body)['score']
+
+      expect(response).to have_http_status(200)
+      expect(score).to eq(70)
+    end
   end
 end
