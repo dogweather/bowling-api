@@ -15,5 +15,11 @@ RSpec.describe Bowling do
 
       expect(Bowling.score(for_frames: all_gutterballs)).to eq(0)
     end
+
+    it 'returns the sum of rolls' do
+      one_pointer_rolls = Array.new(10, Frame.new(rolls: [1, 1]))
+
+      expect(Bowling.score(for_frames: one_pointer_rolls)).to eq(20)
+    end
   end
 end
