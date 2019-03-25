@@ -20,9 +20,7 @@ module Bowling
   end
 
   def bonuses(frames)
-    puts "INPUT: #{frames}"
-
-    xs = take_all_by_3(frames).map do |current, next_1, next_2|
+    take_all_by_3(frames).map do |current, next_1, next_2|
       next_rolls = [next_1, next_2].compact
                                    .map(&:rolls)
                                    .flatten
@@ -35,10 +33,7 @@ module Bowling
       else
         0
       end
-    end
-
-    puts "OUTPUT: #{xs}"
-    xs.sum
+    end.sum
   end
 
   def spare?(frame:)
