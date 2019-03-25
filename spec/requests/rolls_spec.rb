@@ -125,8 +125,19 @@ RSpec.describe 'Rolls', type: :request do
       expect(response).to have_http_status(:unprocessable_entity)
     end
 
+    it 'disallows skipping ahead a frame when current one is unfinished' do
+      (1..3).each do |frame|
+        2.times do
+          post "/games/#{new_game.id}/frames/#{frame}/rolls?score=4"
+          expect(response).to have_http_status(:created)
+        end
+      end
 
+      post "/games/#{new_game.id}/frames/4/rolls?score=5"
+      expect(response).to have_http_status(:created)
 
-    xit 'disallows skipping ahead a frame when current one is unfinished'
+      post "/games/#{new_game.id}/frames/8/rolls?score=5"
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
   end
 end
