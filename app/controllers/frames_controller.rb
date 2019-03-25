@@ -19,6 +19,6 @@ class FramesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_frame
-    @frame = Frame.find(params[:id])
+    @frame = Frame.find_by!(number: params[:id])
   end
 end

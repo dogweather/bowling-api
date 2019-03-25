@@ -24,6 +24,11 @@ RSpec.describe 'Frames', type: :request do
   end
 
   describe 'GET /games/:game_id/frames/:id' do
-    it 'works with the external id'
+    (1..10).each do |frame_id|
+      it 'works with the "external id"' do
+        get "/games/#{new_game.id}/frames/#{frame_id}"
+        expect(response).to have_http_status(:ok)
+      end
+    end
   end
 end
