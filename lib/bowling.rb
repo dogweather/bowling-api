@@ -40,13 +40,13 @@ module Bowling
   #
   # @return [Integer]
   def bonuses(frames)
-    frame_tuples = take_all_by_3(frames)
-    frame_tuples.pop # No bonus for the 10th frame
-
-    frame_tuples.map { |t| bonus(t) }
-                .sum
+    # All except the 10th (last) frame - it doesn't get a bonus
+    frame_tuples_to_check = take_all_by_3(frames)[0...-1]
+    frame_tuples_to_check.map { |tuple| bonus(tuple) }
+                         .sum
   end
 
+  # @return [Integer]
   def bonus(frame_tuple)
     current, next1, next2 = frame_tuple
     next_two_rolls = all_rolls([next1, next2]).slice(0, 2)
