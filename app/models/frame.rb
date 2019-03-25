@@ -5,6 +5,17 @@ class Frame < ApplicationRecord
   belongs_to :game
   has_many :rolls, dependent: :destroy
 
+  # I'm ready if I'm not yet finished and all
+  # previous frames are.
+  def ready_for_new_rolls?
+    return false if finished?
+
+    game.frames
+        .where('number < ?', number)
+        .to_a
+        .all?(&:finished?)
+  end
+
   # @return [Integer] the number to assign to a new
   #         roll or 0 if there is none.
   def next_roll_number
