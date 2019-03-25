@@ -5,7 +5,6 @@ module Bowling
   module_function
 
   def score(for_frames:)
-    simple_sum = for_frames.map { |f| f.rolls.sum }.sum
     bonuses = take_all_by_2(for_frames).map do |tuple|
       curr_frame = tuple.first
       next_frame = tuple.last
@@ -17,17 +16,21 @@ module Bowling
       end
     end.sum
 
-    simple_sum + bonuses
+    simple_sum(for_frames) + bonuses
   end
 
   # Private
+
+  def simple_sum(frames)
+    frames.map { |f| f.rolls.sum }.sum
+  end
 
   def spare?(frame:)
     frame.rolls.count == 2 && frame.rolls.sum == 10
   end
 
   # Return an array of arrays consisting of each element
-  # with its successor, or `nil` if it has none.
+  # paired with its successor or `nil` if it has none.
   #
   # @example
   #
