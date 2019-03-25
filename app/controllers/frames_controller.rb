@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Handle API requests for the Frame resource.
 class FramesController < ApplicationController
   before_action :set_frame, only: %i[show update]
 
@@ -13,17 +14,6 @@ class FramesController < ApplicationController
   # GET /frames/1
   def show
     render json: @frame
-  end
-
-  # POST /frames
-  def create
-    @frame = Frame.new(frame_params)
-
-    if @frame.save
-      render json: @frame, status: :created, location: @frame
-    else
-      render json: @frame.errors, status: :unprocessable_entity
-    end
   end
 
   # PATCH/PUT /frames/1

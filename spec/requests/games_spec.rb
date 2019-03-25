@@ -23,7 +23,10 @@ RSpec.describe 'Games', type: :request do
     end
   end
 
-  # describe 'PUT /games' do
-
-  # end
+  describe 'POST /games' do
+    it 'returns status, object created' do
+      post '/games', headers: headers
+      expect(response).to have_http_status(201)
+    end
+  end
 end
