@@ -49,7 +49,12 @@ RSpec.describe 'Games', type: :request do
     end
 
     it "doesn't return a score when the game has started but not finished" do
+      # Player rolls a 5 and a 2 in the first frame
+      post "/games/#{new_game.id}/frames/1/rolls?score=5"
+      post "/games/#{new_game.id}/frames/1/rolls?score=2"
+      # Check the game info
       get "/games/#{new_game.id}"
+
       attributes = JSON.parse(response.body).keys
 
       expect(response).to have_http_status(200)
