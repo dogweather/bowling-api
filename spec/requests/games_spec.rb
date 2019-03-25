@@ -4,10 +4,9 @@ require 'rails_helper'
 
 RSpec.describe 'Games', type: :request do
   let(:new_game) { Game.create! }
-  let(:headers) { { 'ACCEPT' => 'application/json' } }
 
   describe 'GET /games' do
-    before { get '/games', headers: headers }
+    before { get '/games' }
 
     it 'is successful' do
       expect(response).to have_http_status(200)
@@ -25,7 +24,7 @@ RSpec.describe 'Games', type: :request do
   end
 
   describe 'POST /games' do
-    before { post '/games', headers: headers }
+    before { post '/games' }
 
     it 'returns status: object created' do
       expect(response).to have_http_status(201)
