@@ -4,7 +4,16 @@
 module Bowling
   module_function
 
-  # @param for_frames [Array[#rolls]]
+  # The public function to compute the score of
+  # a ten-pin bowling game.
+  #
+  # Add the basic score of 1 point per pin knocked down
+  # to the additional points given for strikes and spares.
+  #
+  # @param for_frames [Array<#rolls>] An Array of objects
+  #        which respond to #rolls, which returns an Array of
+  #        integers representing how many pins were knocked
+  #        down by a roll.
   # @return [Integer]
   def score(for_frames:)
     simple_points(for_frames) + bonuses(for_frames)
@@ -12,15 +21,30 @@ module Bowling
 
   # Private
 
+  # The total number of pins knocked down in the game.
+  # Each pin equals one point.
+  #
   # @return [Integer]
   def simple_points(frames)
     all_rolls(frames).sum
   end
 
+  # The total additional points given due to rolling
+  # a spare or strike.
+  #
+  # Algorithm: Iterate through each frame, calculating
+  # the spare/strike bonus due. Do this by considering three
+  # frames at a time: the current frame plus the next two
+  # which follow. The player may have rolled many strikes, and
+  # so, up to two following frames may need to be consulted.
+  #
   # @return [Integer]
   def bonuses(frames)
-    take_all_by_3(frames).map do |current, next_1, next_2|
-      next_two_rolls = all_rolls([next_1, next_2]).slice(0, 2)
+    frame_tuples = take_all_by_3(frames)
+    frame_tuples.pop # No bonus for the 10th frame
+
+    frame_tuples.map do |current, next1, next2|
+      next_two_rolls = all_rolls([next1, next2]).slice(0, 2)
 
       if spare?(frame: current)
         next_two_rolls.first
