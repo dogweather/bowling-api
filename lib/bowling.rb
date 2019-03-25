@@ -47,8 +47,11 @@ module Bowling
   end
 
   # Calculate a frame's bonus by the rules of ten-pin,
-  # which require looking ahead one or two frames.
+  # which require looking ahead one or two frames:
+  # A spare gets the bonus of the next roll. A strike
+  # gets the bonus of the next two rolls.
   #
+  # @param frame_tuple [Array<#rolls>] an Array of three frames
   # @return [Integer]
   def bonus(frame_tuple)
     current_frame, next1, next2 = frame_tuple
