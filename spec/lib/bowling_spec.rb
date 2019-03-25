@@ -41,8 +41,25 @@ RSpec.describe Bowling do
     end
 
     it 'correctly calculates all spares' do
-      game = Array.new(9, Frame.new(rolls: [9, 1])) + [Frame.new(rolls: [9, 1, 9])]
+      game = Array.new(9, Frame.new(rolls: [9, 1])) +
+             [Frame.new(rolls: [9, 1, 9])]
       expect(Bowling.score(for_frames: game)).to eq(190)
+    end
+
+    it 'correctly handles a spare in the 9th frame' do
+      game = [
+        Frame.new(rolls: [1, 2]),
+        Frame.new(rolls: [1, 2]),
+        Frame.new(rolls: [1, 2]),
+        Frame.new(rolls: [1, 2]),
+        Frame.new(rolls: [1, 2]),
+        Frame.new(rolls: [1, 2]),
+        Frame.new(rolls: [1, 2]),
+        Frame.new(rolls: [1, 2]),
+        Frame.new(rolls: [1, 9]),
+        Frame.new(rolls: [1, 2])
+      ]
+      expect(Bowling.score(for_frames: game)).to eq(38)
     end
   end
 end
