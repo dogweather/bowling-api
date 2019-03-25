@@ -18,4 +18,14 @@ RSpec.describe 'Rolls', type: :request do
       end
     end
   end
+
+  describe 'POST /games/:game_id/frames/:frame_id/rolls' do
+    context 'when a game has just been created' do
+      before { post "/games/#{games(:new_game).id}/frames/1/rolls" }
+
+      it 'returns success: object created' do
+        expect(response).to have_http_status(201)
+      end
+    end
+  end
 end

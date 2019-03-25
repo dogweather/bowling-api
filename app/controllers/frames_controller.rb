@@ -7,7 +7,6 @@ class FramesController < ApplicationController
   # GET /frames
   def index
     @frames = Frame.all
-
     render json: @frames
   end
 
