@@ -10,6 +10,8 @@ RSpec.describe Bowling do
   Frame = Struct.new('Frame', :rolls, keyword_init: true)
 
   describe '#score' do
+    let(:spare) { Frame.new(rolls: [1, 9]) }
+
     it 'returns 0 for all gutter-balls' do
       all_gutterballs = Array.new(10, Frame.new(rolls: [0, 0]))
 
@@ -22,8 +24,8 @@ RSpec.describe Bowling do
       expect(Bowling.score(for_frames: one_pointer_rolls)).to eq(20)
     end
 
-    it 'handles a spare correcty' do
-      frames = [Frame.new(rolls: [1, 9])] + Array.new(9, Frame.new(rolls: [3, 4]))
+    it 'handles a spare correctly' do
+      frames = [spare] + Array.new(9, Frame.new(rolls: [3, 4]))
 
       expect(Bowling.score(for_frames: frames)).to eq(76)
     end
