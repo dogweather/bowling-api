@@ -76,4 +76,9 @@ RSpec.describe 'Games', type: :request do
       expect(score).to eq(70)
     end
   end
+
+  describe 'DELETE /games/:id' do
+    it 'is successful when game exists'
+    it 'fails when game does not exist'
+  end
 end

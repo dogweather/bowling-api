@@ -22,4 +22,8 @@ RSpec.describe 'Frames', type: :request do
       expect(frame_count).to eq(10)
     end
   end
+
+  describe 'GET /games/:game_id/frames/:id' do
+    it 'works with the external id'
+  end
 end
