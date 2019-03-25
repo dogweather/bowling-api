@@ -61,5 +61,21 @@ RSpec.describe Bowling do
       ]
       expect(Bowling.score(for_frames: game)).to eq(38)
     end
+
+    it 'correctly handles a strike in the 9th frame' do
+      game = [
+        Frame.new(rolls: [1, 2]),
+        Frame.new(rolls: [1, 2]),
+        Frame.new(rolls: [1, 2]),
+        Frame.new(rolls: [1, 2]),
+        Frame.new(rolls: [1, 2]),
+        Frame.new(rolls: [1, 2]),
+        Frame.new(rolls: [1, 2]),
+        Frame.new(rolls: [1, 2]),
+        Frame.new(rolls: [10]),
+        Frame.new(rolls: [1, 2])
+      ]
+      expect(Bowling.score(for_frames: game)).to eq(40)
+    end
   end
 end
