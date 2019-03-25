@@ -21,9 +21,4 @@ class FramesController < ApplicationController
   def set_frame
     @frame = Frame.find(params[:id])
   end
-
-  # Only allow a trusted parameter "white list" through.
-  def frame_params
-    params.require(:frame).permit(:number, :game_id)
-  end
 end

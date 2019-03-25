@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class RollsController < ApplicationController
-  before_action :set_roll, only: [:show, :update, :destroy]
+  before_action :set_roll, only: [:show]
 
   # GET /rolls
   def index
@@ -15,7 +17,12 @@ class RollsController < ApplicationController
 
   # POST /rolls
   def create
-    @roll = Roll.new(roll_params)
+    frame = Frame.find_by!(
+      game_id: roll_params[:game_id],
+      number:  roll_params[:frame_id]
+    )
+
+    @roll = Roll.new(frame_id: frame.id, score: roll_params[:score])
 
     if @roll.save
       render json: @roll, status: :created, location: @roll
@@ -24,28 +31,16 @@ class RollsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /rolls/1
-  def update
-    if @roll.update(roll_params)
-      render json: @roll
-    else
-      render json: @roll.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /rolls/1
-  def destroy
-    @roll.destroy
-  end
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_roll
-      @roll = Roll.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def roll_params
-      params.require(:roll).permit(:number, :frame_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_roll
+    @roll = Roll.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def roll_params
+    params.require(%i[frame_id game_id score])
+          .permit(:frame_id, :game_id, :score)
+  end
 end
