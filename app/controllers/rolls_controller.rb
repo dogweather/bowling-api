@@ -6,7 +6,6 @@ class RollsController < ApplicationController
   # GET /rolls
   def index
     @rolls = Roll.all
-
     render json: @rolls
   end
 
