@@ -22,10 +22,10 @@ RSpec.describe Bowling do
       expect(Bowling.score(for_frames: one_pointer_rolls)).to eq(20)
     end
 
-    it 'returns the sum of rolls (many pins knocked over)' do
-      many_pins_hit = Array.new(10, Frame.new(rolls: [4, 5]))
+    it 'handles a spare correcty' do
+      frames = [Frame.new(rolls: [1, 9])] + Array.new(9, Frame.new(rolls: [3, 4]))
 
-      expect(Bowling.score(for_frames: many_pins_hit)).to eq(90)
+      expect(Bowling.score(for_frames: frames)).to eq(76)
     end
   end
 end
