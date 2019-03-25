@@ -19,9 +19,15 @@ game_frame_rolls GET    /games/:game_id/frames/:frame_id/rolls(.:format)     rol
 
 ```
 
-The `:game_id` is an internal id.  The `:frame_id` and `rolls/:id` are external id's,
-corresponding to the natural numbering of frames and balls. E.g., if a game's id is
-`12345`, then the endpoint to retrieve its first roll in the first frame would be:
+## Design Choice: Deep vs. Shallow Nesting
+
+I opted for "deep nesting" because of the strict definition of the game. E.g., there
+are always ten frames, with 2 or 3 rolls. And by using "external id's", the client's
+work is simpler because the endpoints are pre-determined. In essence, the API navigates
+a large, finite data structure.
+
+The `:game_id` is an internal id. (The `id` db column.) The `:frame_id` and `rolls/:id` are external id's, corresponding to the natural numbering of frames and balls. E.g., if a game's
+ id is `12345`, then the endpoint to retrieve its first roll in the first frame would be:
 
 ```
 GET /games/12345/frames/1/rolls/1
