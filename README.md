@@ -44,7 +44,7 @@ explain what this app does and how.
   API.
 * The [Bowling module](https://github.com/dogweather/bowling-api/blob/master/lib/bowling.rb),
   which contains the scoring logic.
-* The [database schema](https://github.com/dogweather/bowling-api/blob/finishing-up/db/schema.rb).
+* The [database schema](https://github.com/dogweather/bowling-api/blob/master/db/schema.rb).
 
 ## Development environment set up and launch
 
