@@ -43,6 +43,12 @@ class RollsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_roll
-    @roll = Roll.find(params[:id])
+    num = params[:id]
+    frame = Frame.find_by!(
+      game_id: params.fetch(:game_id),
+      number:  params.fetch(:frame_id)
+    )
+
+    @roll = Roll.find_by!(number: num, frame_id: frame.id)
   end
 end
