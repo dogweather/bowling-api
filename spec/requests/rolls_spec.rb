@@ -20,8 +20,19 @@ RSpec.describe 'Rolls', type: :request do
   end
 
   describe 'POST /games/:game_id/frames/:frame_id/rolls' do
-    it 'returns Unprocessable Entity if the roll has an invalid score' do
+    it "won't permit an invalid score" do
       post "/games/#{new_game.id}/frames/1/rolls?score=50"
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+
+    it "won't permit 3 rolls where only two are allowed" do
+      post "/games/#{new_game.id}/frames/1/rolls?score=1"
+      expect(response).to have_http_status(:created)
+
+      post "/games/#{new_game.id}/frames/1/rolls?score=1"
+      expect(response).to have_http_status(:created)
+
+      post "/games/#{new_game.id}/frames/1/rolls?score=1"
       expect(response).to have_http_status(:unprocessable_entity)
     end
 
