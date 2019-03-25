@@ -4,10 +4,9 @@ require 'rails_helper'
 
 RSpec.describe 'Games', type: :request do
   fixtures :games
+  let(:headers) { { 'ACCEPT' => 'application/json' } }
 
   describe 'GET /games' do
-    let(:headers) { { 'ACCEPT' => 'application/json' } }
-
     it 'is successful' do
       get '/games', headers: headers
       expect(response).to have_http_status(200)
@@ -23,4 +22,8 @@ RSpec.describe 'Games', type: :request do
       expect(JSON.parse(response.body).first['id']).to eq(games(:new_game).id)
     end
   end
+
+  # describe 'PUT /games' do
+
+  # end
 end
