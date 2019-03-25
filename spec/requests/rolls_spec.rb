@@ -59,7 +59,7 @@ RSpec.describe 'Rolls', type: :request do
       expect(response).to have_http_status(:unprocessable_entity)
     end
 
-    it 'will allow 3 throws in the 10th frame on a strike' do
+    it 'allows 3 throws in the 10th frame on a strike' do
       (1..9).each do |frame|
         2.times do
           post "/games/#{new_game.id}/frames/#{frame}/rolls?score=8"
@@ -77,7 +77,7 @@ RSpec.describe 'Rolls', type: :request do
       expect(response).to have_http_status(:created)
     end
 
-    it 'will allow 3 throws in the 10th frame on a spare' do
+    it 'allows 3 throws in the 10th frame on a spare' do
       (1..9).each do |frame|
         2.times do
           post "/games/#{new_game.id}/frames/#{frame}/rolls?score=5"
@@ -95,7 +95,7 @@ RSpec.describe 'Rolls', type: :request do
       expect(response).to have_http_status(:created)
     end
 
-    it 'will allow only 2 throws in the 10th frame w/out a spare or strike' do
+    it 'allows only 2 throws in the 10th frame w/out a spare or strike' do
       (1..9).each do |frame|
         2.times do
           post "/games/#{new_game.id}/frames/#{frame}/rolls?score=4"
@@ -112,5 +112,7 @@ RSpec.describe 'Rolls', type: :request do
       post "/games/#{new_game.id}/frames/10/rolls?score=1"
       expect(response).to have_http_status(:unprocessable_entity)
     end
+
+    xit 'disallows skipping ahead a frame'
   end
 end
