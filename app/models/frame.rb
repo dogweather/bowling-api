@@ -6,10 +6,10 @@ class Frame < ApplicationRecord
   has_many :rolls, dependent: :destroy
 
   # @return [Integer] the number to assign to a new
-  #         roll.
+  #         roll or 0 if there is none.
   def next_roll_number
     limit = number == 10 ? 3 : 2
-    raise "Frame #{number} already has #{limit} rolls" if rolls.count == limit
+    return 0 if rolls.count == limit
 
     rolls.count + 1
   end

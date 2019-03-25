@@ -5,4 +5,5 @@ class Roll < ApplicationRecord
   belongs_to :frame
 
   validates :score, inclusion: { in: (1..10) }
+  validates :number, inclusion: { in: (1..3) }
 end
