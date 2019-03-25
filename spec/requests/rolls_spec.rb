@@ -34,15 +34,15 @@ RSpec.describe 'Rolls', type: :request do
     end
 
     it "won't permit 3 rolls where only two are allowed" do
-      gutter_ball = "/games/#{new_game.id}/frames/1/rolls?score=1"
+      simple_throw = "/games/#{new_game.id}/frames/1/rolls?score=8"
 
-      post gutter_ball
+      post simple_throw
       expect(response).to have_http_status(:created)
 
-      post gutter_ball
+      post simple_throw
       expect(response).to have_http_status(:created)
 
-      post gutter_ball
+      post simple_throw
       expect(response).to have_http_status(:unprocessable_entity)
     end
 
@@ -57,6 +57,24 @@ RSpec.describe 'Rolls', type: :request do
 
       post gutter_ball
       expect(response).to have_http_status(:unprocessable_entity)
+    end
+
+    it 'will allow 3 throws in the tenth frame on a strike' do
+      (1..9).each do |frame|
+        2.times do
+          post "/games/#{new_game.id}/frames/#{frame}/rolls?score=8"
+          expect(response).to have_http_status(:created)
+        end
+      end
+
+      post "/games/#{new_game.id}/frames/10/rolls?score=10"
+      expect(response).to have_http_status(:created)
+
+      post "/games/#{new_game.id}/frames/10/rolls?score=1"
+      expect(response).to have_http_status(:created)
+
+      post "/games/#{new_game.id}/frames/10/rolls?score=1"
+      expect(response).to have_http_status(:created)
     end
   end
 end
