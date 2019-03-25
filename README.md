@@ -33,7 +33,22 @@ The `:game_id` is an internal id. (The `id` db column.) The `:frame_id` and `rol
 GET /games/12345/frames/1/rolls/1
 ```
 
+## Understanding the Code
+
+Since this a JSON API, looking at just a few key places will
+explain what this app does and how.
+
+* The output of `rails routes`, above.
+* The [request specs](https://github.com/dogweather/bowling-api/tree/master/spec/requests),
+  because they test the app from the point of view of a client using the
+  API.
+* The [Bowling module](https://github.com/dogweather/bowling-api/blob/master/lib/bowling.rb),
+  which contains the scoring logic.
+
 ## Development environment set up and launch
+
+Docker is the only prerequisite to getting the dev environment
+up and running.
 
 ```bash
 docker-compose up
@@ -45,4 +60,10 @@ Run with specs with:
 
 ```bash
 docker-compose exec web rspec
+```
+
+Execute tasks with, e.g.:
+
+```bash
+docker-compose exec rake -T
 ```
