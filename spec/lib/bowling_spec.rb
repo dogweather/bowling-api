@@ -78,4 +78,12 @@ RSpec.describe Bowling do
       expect(Bowling.score(for_frames: game)).to eq(40)
     end
   end
+
+  describe '#take_all_by_3' do
+    it 'produces a 3-tuple for every element, including nils if needed' do
+      input = [1, 2, 3, 4, 5]
+      expected = [[1, 2, 3], [2, 3, 4], [3, 4, 5], [4, 5, nil], [5, nil, nil]]
+      expect(Bowling.take_all_by_3(input)).to eq(expected)
+    end
+  end
 end
