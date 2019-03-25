@@ -24,9 +24,16 @@ RSpec.describe 'Games', type: :request do
   end
 
   describe 'POST /games' do
-    it 'returns status, object created' do
-      post '/games', headers: headers
+    before { post '/games', headers: headers }
+    it 'returns status: object created' do
       expect(response).to have_http_status(201)
+    end
+
+    it 'returns the new Game id' do
+      newest_id = Game.order('id DESC').limit(1).pluck(:id).first
+      actual_id = JSON.parse(response.body)['id']
+
+      expect(actual_id).to eq(newest_id)
     end
   end
 end
