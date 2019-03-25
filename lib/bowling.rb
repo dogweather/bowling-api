@@ -21,12 +21,22 @@ module Bowling
       curr_frame = tuple.first
       next_frame = tuple.last
 
-      next_frame.rolls.first if spare?(frame: curr_frame)
-    end.compact.sum
+      if spare?(frame: curr_frame)
+        next_frame.rolls.first
+      elsif strike?(frame: curr_frame)
+        next_frame.rolls.sum
+      else
+        0
+      end
+    end.sum
   end
 
   def spare?(frame:)
     frame.rolls.count == 2 && frame.rolls.sum == 10
+  end
+
+  def strike?(frame:)
+    frame.rolls.count == 1 && frame.rolls.first == 10
   end
 
   # Return an array of arrays consisting of each element
