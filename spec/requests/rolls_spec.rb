@@ -19,6 +19,11 @@ RSpec.describe 'Rolls', type: :request do
     end
   end
 
+  describe 'GET /games/:game_id/frames/:frame_id/rolls/:id' do
+    xit 'works with the external id' do
+    end
+  end
+
   describe 'POST /games/:game_id/frames/:frame_id/rolls' do
     context 'when a game has just been created' do
       it 'returns success: object created' do
