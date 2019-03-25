@@ -20,6 +20,14 @@ RSpec.describe 'Rolls', type: :request do
   end
 
   describe 'POST /games/:game_id/frames/:frame_id/rolls' do
+    context 'when a game has just been created' do
+      before { post "/games/#{new_game.id}/frames/1/rolls?score=5" }
+
+      it 'returns success: object created' do
+        expect(response).to have_http_status(201)
+      end
+    end
+
     it "won't permit an invalid score" do
       post "/games/#{new_game.id}/frames/1/rolls?score=50"
       expect(response).to have_http_status(:unprocessable_entity)
@@ -49,14 +57,6 @@ RSpec.describe 'Rolls', type: :request do
 
       post gutter_ball
       expect(response).to have_http_status(:unprocessable_entity)
-    end
-
-    context 'when a game has just been created' do
-      before { post "/games/#{new_game.id}/frames/1/rolls?score=5" }
-
-      it 'returns success: object created' do
-        expect(response).to have_http_status(201)
-      end
     end
   end
 end
