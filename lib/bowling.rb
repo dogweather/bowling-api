@@ -22,17 +22,15 @@ module Bowling
   def bonuses(frames)
     puts "INPUT: #{frames}"
 
-    xs = take_all_by_3(frames).map do |tuple|
-      current_frame = tuple.first
-      next_two_frames = tuple.slice(0, 2)
-                             .compact
-      next_rolls = next_two_frames.map(&:rolls)
-                                  .flatten
-                                  .slice(0, 2)
+    xs = take_all_by_3(frames).map do |current, next_1, next_2|
+      next_rolls = [next_1, next_2].compact
+                                   .map(&:rolls)
+                                   .flatten
+                                   .slice(0, 2)
 
-      if spare?(frame: current_frame)
+      if spare?(frame: current)
         next_rolls.first
-      elsif strike?(frame: current_frame)
+      elsif strike?(frame: current)
         next_rolls.sum
       else
         0
