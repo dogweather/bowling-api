@@ -59,7 +59,7 @@ RSpec.describe 'Rolls', type: :request do
       expect(response).to have_http_status(:unprocessable_entity)
     end
 
-    it 'will allow 3 throws in the tenth frame on a strike' do
+    it 'will allow 3 throws in the 10th frame on a strike' do
       (1..9).each do |frame|
         2.times do
           post "/games/#{new_game.id}/frames/#{frame}/rolls?score=8"
@@ -77,7 +77,7 @@ RSpec.describe 'Rolls', type: :request do
       expect(response).to have_http_status(:created)
     end
 
-    it 'will allow 3 throws in the tenth frame on a spare' do
+    it 'will allow 3 throws in the 10th frame on a spare' do
       (1..9).each do |frame|
         2.times do
           post "/games/#{new_game.id}/frames/#{frame}/rolls?score=5"
@@ -93,6 +93,24 @@ RSpec.describe 'Rolls', type: :request do
 
       post "/games/#{new_game.id}/frames/10/rolls?score=1"
       expect(response).to have_http_status(:created)
+    end
+
+    it 'will allow only 2 throws in the 10th frame w/out a spare or strike' do
+      (1..9).each do |frame|
+        2.times do
+          post "/games/#{new_game.id}/frames/#{frame}/rolls?score=4"
+          expect(response).to have_http_status(:created)
+        end
+      end
+
+      post "/games/#{new_game.id}/frames/10/rolls?score=5"
+      expect(response).to have_http_status(:created)
+
+      post "/games/#{new_game.id}/frames/10/rolls?score=3"
+      expect(response).to have_http_status(:created)
+
+      post "/games/#{new_game.id}/frames/10/rolls?score=1"
+      expect(response).to have_http_status(:unprocessable_entity)
     end
   end
 end
