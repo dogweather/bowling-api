@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class FramesController < ApplicationController
-  before_action :set_frame, only: [:show, :update, :destroy]
+  before_action :set_frame, only: %i[show update]
 
   # GET /frames
   def index
@@ -33,19 +35,15 @@ class FramesController < ApplicationController
     end
   end
 
-  # DELETE /frames/1
-  def destroy
-    @frame.destroy
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_frame
+    @frame = Frame.find(params[:id])
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_frame
-      @frame = Frame.find(params[:id])
-    end
-
-    # Only allow a trusted parameter "white list" through.
-    def frame_params
-      params.require(:frame).permit(:number, :game_id)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def frame_params
+    params.require(:frame).permit(:number, :game_id)
+  end
 end
