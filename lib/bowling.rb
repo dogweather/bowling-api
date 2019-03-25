@@ -11,9 +11,8 @@ module Bowling
   # to the additional points given for strikes and spares.
   #
   # @param for_frames [Array<#rolls>] An Array of objects
-  #        which respond to #rolls, which returns an Array of
-  #        integers representing how many pins were knocked
-  #        down by a roll.
+  #        which respond to #rolls, which returns an array
+  #        of Roll-like objects that respond to #score.
   # @return [Integer]
   def score(for_frames:)
     simple_points(for_frames) + total_bonus(for_frames)

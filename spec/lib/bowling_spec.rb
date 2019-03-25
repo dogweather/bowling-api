@@ -4,9 +4,7 @@ require 'spec_helper'
 require 'bowling'
 
 RSpec.describe Bowling do
-  # A simple Duck-type Frame which responds to #rolls,
-  # returning an array of two or three integers representing
-  # the number of pins hit on the rolls.
+  # A simple mock Frame with a working #rolls.
   MockFrame = Struct.new('MockFrame', :throws, keyword_init: true) do
     def rolls
       throws.map.with_index { |t, index| Roll.new(score: t, number: index + 1) }
