@@ -83,39 +83,6 @@ RSpec.describe GamesController, type: :controller do
     end
   end
 
-  # describe 'PUT #update' do
-  #   context 'with valid params' do
-  #     let(:new_attributes) do
-  #       skip('Add a hash of attributes valid for your model')
-  #     end
-
-  #     it 'updates the requested game' do
-  #       game = Game.create! valid_attributes
-  #       put :update, params: { id: game.to_param, game: new_attributes }, session: valid_session
-  #       game.reload
-  #       skip('Add assertions for updated state')
-  #     end
-
-  #     it 'renders a JSON response with the game' do
-  #       game = Game.create! valid_attributes
-
-  #       put :update, params: { id: game.to_param, game: valid_attributes }, session: valid_session
-  #       expect(response).to have_http_status(:ok)
-  #       expect(response.content_type).to eq('application/json')
-  #     end
-  #   end
-
-  #   context 'with invalid params' do
-  #     it 'renders a JSON response with errors for the game' do
-  #       game = Game.create! valid_attributes
-
-  #       put :update, params: { id: game.to_param, game: invalid_attributes }, session: valid_session
-  #       expect(response).to have_http_status(:unprocessable_entity)
-  #       expect(response.content_type).to eq('application/json')
-  #     end
-  #   end
-  # end
-
   describe 'DELETE #destroy' do
     it 'destroys the requested game' do
       game = Game.create! valid_attributes
