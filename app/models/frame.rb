@@ -8,8 +8,7 @@ class Frame < ApplicationRecord
   # @return [Integer] the number to assign to a new
   #         roll or 0 if there is none.
   def next_roll_number
-    limit = number == 10 ? 3 : 2
-    return 0 if rolls.count == limit
+    return 0 if finished?
 
     rolls.count + 1
   end
