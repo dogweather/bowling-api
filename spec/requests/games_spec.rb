@@ -49,6 +49,6 @@ RSpec.describe 'Games', type: :request do
       expect(attributes).not_to include('score')
     end
 
-    xit "doesn't give a score when the game hasn't finished"
+    xit "doesn't give a score when the game has started but hasn't finished"
   end
 end
