@@ -43,17 +43,21 @@ module Bowling
     frame_tuples = take_all_by_3(frames)
     frame_tuples.pop # No bonus for the 10th frame
 
-    frame_tuples.map do |current, next1, next2|
-      next_two_rolls = all_rolls([next1, next2]).slice(0, 2)
+    frame_tuples.map { |t| bonus(t) }
+                .sum
+  end
 
-      if spare?(frame: current)
-        next_two_rolls.first
-      elsif strike?(frame: current)
-        next_two_rolls.sum
-      else
-        0
-      end
-    end.sum
+  def bonus(frame_tuple)
+    current, next1, next2 = frame_tuple
+    next_two_rolls = all_rolls([next1, next2]).slice(0, 2)
+
+    if spare?(frame: current)
+      next_two_rolls.first
+    elsif strike?(frame: current)
+      next_two_rolls.sum
+    else
+      0
+    end
   end
 
   # Be forgiving of nils in the input,
