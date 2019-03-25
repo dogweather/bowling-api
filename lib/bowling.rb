@@ -4,13 +4,15 @@
 module Bowling
   module_function
 
+  # @param for_frames [Array[#rolls]]
+  # @return [Integer]
   def score(for_frames:)
-    simple_sum(for_frames) + bonuses(for_frames)
+    pins(for_frames) + bonuses(for_frames)
   end
 
   # Private
 
-  def simple_sum(frames)
+  def pins(frames)
     frames.map { |f| f.rolls.sum }.sum
   end
 
@@ -19,12 +21,8 @@ module Bowling
       curr_frame = tuple.first
       next_frame = tuple.last
 
-      if spare?(frame: curr_frame)
-        next_frame.rolls.first
-      else
-        0
-      end
-    end.sum
+      next_frame.rolls.first if spare?(frame: curr_frame)
+    end.compact.sum
   end
 
   def spare?(frame:)
