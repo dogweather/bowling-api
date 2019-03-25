@@ -114,5 +114,6 @@ RSpec.describe 'Rolls', type: :request do
     end
 
     xit 'disallows skipping ahead a frame'
+    xit 'disallows skipping ahead a frame when current one is unfinished'
   end
 end
