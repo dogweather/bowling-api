@@ -20,13 +20,8 @@ class GamesController < ApplicationController
 
   # POST /games
   def create
-    @game = Game.new
-
-    if @game.save
-      render json: @game, status: :created, location: @game
-    else
-      render json: @game.errors, status: :unprocessable_entity
-    end
+    @game = Game.create!
+    render json: @game, status: :created, location: @game
   end
 
   # DELETE /games/1
@@ -39,10 +34,5 @@ class GamesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_game
     @game = Game.find(params[:id])
-  end
-
-  # Only allow a trusted parameter "white list" through.
-  def game_params
-    params.fetch(:game, {})
   end
 end
