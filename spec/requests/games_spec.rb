@@ -18,7 +18,10 @@ RSpec.describe 'Games', type: :request do
     end
 
     it 'returns an array of game objects' do
-      expect(JSON.parse(response.body).first['id']).to eq(games(:new_game).id)
+      expected_id = games(:new_game).id
+      actual_id   = JSON.parse(response.body).first['id']
+
+      expect(actual_id).to eq(expected_id)
     end
   end
 
