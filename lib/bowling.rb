@@ -16,7 +16,7 @@ module Bowling
   #        down by a roll.
   # @return [Integer]
   def score(for_frames:)
-    simple_points(for_frames) + bonuses(for_frames)
+    simple_points(for_frames) + total_bonus(for_frames)
   end
 
   # Private
@@ -39,21 +39,25 @@ module Bowling
   # so, up to two following frames may need to be consulted.
   #
   # @return [Integer]
-  def bonuses(frames)
+  def total_bonus(frames)
     # All except the 10th (last) frame - it doesn't get a bonus
     frame_tuples_to_check = take_all_by_3(frames)[0...-1]
     frame_tuples_to_check.map { |tuple| bonus(tuple) }
                          .sum
   end
 
+  # Calculate a frame's bonus by the rules of ten-pin,
+  # which require looking ahead one or two frames.
+  #
   # @return [Integer]
   def bonus(frame_tuple)
-    current, next1, next2 = frame_tuple
+    current_frame, next1, next2 = frame_tuple
+
     next_two_rolls = all_rolls([next1, next2]).slice(0, 2)
 
-    if spare?(frame: current)
+    if spare?(current_frame)
       next_two_rolls.first
-    elsif strike?(frame: current)
+    elsif strike?(current_frame)
       next_two_rolls.sum
     else
       0
@@ -71,11 +75,11 @@ module Bowling
           .flatten
   end
 
-  def spare?(frame:)
+  def spare?(frame)
     frame.rolls.count == 2 && frame.rolls.sum == 10
   end
 
-  def strike?(frame:)
+  def strike?(frame)
     frame.rolls.count == 1 && frame.rolls.first == 10
   end
 
