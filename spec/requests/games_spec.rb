@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Games', type: :request do
-  fixtures :games
+  let(:new_game) { Game.create! }
   let(:headers) { { 'ACCEPT' => 'application/json' } }
 
   describe 'GET /games' do
@@ -18,10 +18,9 @@ RSpec.describe 'Games', type: :request do
     end
 
     it 'returns an array of game objects' do
-      expected_id = games(:new_game).id
-      actual_id   = JSON.parse(response.body).first['id']
+      content = JSON.parse(response.body)
 
-      expect(actual_id).to eq(expected_id)
+      expect(content).to be_an(Array)
     end
   end
 
@@ -42,13 +41,19 @@ RSpec.describe 'Games', type: :request do
 
   describe 'GET /game/:game_id' do
     it "doesn't return a score when the game is new" do
-      get "/games/#{games(:new_game).id}"
+      get "/games/#{new_game.id}"
       attributes = JSON.parse(response.body).keys
 
       expect(response).to have_http_status(200)
       expect(attributes).not_to include('score')
     end
 
-    xit "doesn't give a score when the game has started but hasn't finished"
+    it "doesn't return a score when the game has started but not finished" do
+      get "/games/#{new_game.id}"
+      attributes = JSON.parse(response.body).keys
+
+      expect(response).to have_http_status(200)
+      expect(attributes).not_to include('score')
+    end
   end
 end

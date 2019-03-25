@@ -25,7 +25,6 @@ RSpec.describe 'Rolls', type: :request do
 
       it 'returns success: object created' do
         expect(response).to have_http_status(201)
-        puts response.location
       end
     end
   end
