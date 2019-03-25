@@ -1,24 +1,16 @@
-# README
+# Ten-Pin Bowling API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[![Build Status](https://travis-ci.org/dogweather/bowling-api.svg?branch=master)](https://travis-ci.org/dogweather/bowling-api)
 
-Things you may want to cover:
+[![Maintainability](https://api.codeclimate.com/v1/badges/a3e5c9c337305129b87b/maintainability)](https://codeclimate.com/github/dogweather/bowling-api/maintainability)
 
-* Ruby version
 
-* System dependencies
 
-* Configuration
 
-* Database creation
+Creating a Game API as an exercise.
 
-* Database initialization
+## Development environment set up and launch
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```bash
+docker-compose up
+```
