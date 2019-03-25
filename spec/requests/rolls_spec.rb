@@ -20,7 +20,12 @@ RSpec.describe 'Rolls', type: :request do
   end
 
   describe 'GET /games/:game_id/frames/:frame_id/rolls/:id' do
-    xit 'works with the external id' do
+    it 'works with the external id' do
+      post "/games/#{new_game.id}/frames/1/rolls?score=5"
+      expect(response).to have_http_status(:created)
+
+      get "/games/#{new_game.id}/frames/1/rolls/1"
+      expect(response).to have_http_status(:ok)
     end
   end
 
