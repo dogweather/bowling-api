@@ -23,11 +23,17 @@ class RollsController < ApplicationController
 
     @roll = Roll.new(
       frame_id: frame.id,
-      score:    params.fetch(:score)
+      score:    params.fetch(:score),
+      number:   frame.next_roll_number
     )
 
     if @roll.save
-      render json: @roll, status: :created, location: @roll
+      url = game_frame_roll_path(
+        game_id:  params.fetch(:game_id),
+        frame_id: params.fetch(:frame_id),
+        id:       @roll.number
+      )
+      render json: @roll, status: :created, location: url
     else
       render json: @roll.errors, status: :unprocessable_entity
     end
