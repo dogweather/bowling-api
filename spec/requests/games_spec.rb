@@ -70,9 +70,9 @@ RSpec.describe 'Games', type: :request do
 
       # Check the game info
       get "/games/#{new_game.id}"
-      score = JSON.parse(response.body)['score']
-
       expect(response).to have_http_status(200)
+
+      score = JSON.parse(response.body)['score']
       expect(score).to eq(70)
     end
   end

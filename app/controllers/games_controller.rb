@@ -12,7 +12,10 @@ class GamesController < ApplicationController
 
   # GET /games/1
   def show
-    render json: @game
+    json = @game.as_json
+    json[:score] = @game.score if @game.score?
+
+    render json: json
   end
 
   # POST /games

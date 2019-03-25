@@ -13,4 +13,8 @@ class Frame < ApplicationRecord
 
     rolls.count + 1
   end
+
+  def finished?
+    rolls.count >= 2
+  end
 end
