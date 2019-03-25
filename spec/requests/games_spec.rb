@@ -78,7 +78,9 @@ RSpec.describe 'Games', type: :request do
   end
 
   describe 'DELETE /games/:id' do
-    it 'is successful when game exists'
-    it 'fails when game does not exist'
+    it 'is successful when game exists' do
+      delete "/games/#{new_game.id}"
+      expect(response).to have_http_status(204)
+    end
   end
 end
