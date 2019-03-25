@@ -5,6 +5,6 @@ module Bowling
   module_function
 
   def score(for_frames:)
-    0
+    for_frames.map { |f| f.rolls.sum }.sum
   end
 end
